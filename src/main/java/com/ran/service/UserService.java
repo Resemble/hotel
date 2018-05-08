@@ -2,6 +2,7 @@ package com.ran.service;
 
 import com.ran.entity.UserEntity;
 import com.ran.mapper.UserMapper;
+import com.ran.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired private PasswordUtil passwordUtil;
+
     public List<UserEntity> getUsers() {
         List<UserEntity> users=userMapper.getAll();
         return users;
@@ -32,11 +35,20 @@ public class UserService {
     }
 
     public void save(UserEntity user) {
+        user.setPassWord(passwordUtil.generate(user.getPassWord()));
         userMapper.insert(user);
     }
 
     public void update(UserEntity user) {
-        userMapper.update(user);
+        // 密码改盐加密，没改旧盐加密
+        String newPassWord = user.getPassWord();
+        String oldPassWord = getUser(user.getId()).getPassWord();
+        if(newPassWord.equals(oldPassWord)) {
+            userMapper.update(user);
+        } else {
+            user.setPassWord(passwordUtil.generate(newPassWord));
+            userMapper.update(user);
+        }
     }
 
     public void delete(Long id) {
