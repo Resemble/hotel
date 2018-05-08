@@ -1,5 +1,9 @@
 package com.ran.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * @author ranbo
  * @version V1.0
@@ -8,12 +12,18 @@ package com.ran.entity;
  * @Description:
  * @date 2018/5/7 下午4:19
  */
+@Entity
 public class UserEntity {
 
+    @Id
     private Long id;
+    @Column
     private String userName;
+    @Column
     private String passWord;
+    @Column
     private String userSex;
+    @Column
     private String nickName;
 
 
