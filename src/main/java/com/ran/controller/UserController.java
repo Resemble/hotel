@@ -3,39 +3,55 @@ package com.ran.controller;
 import com.ran.entity.UserEntity;
 import com.ran.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController public class UserController {
+@Controller public class UserController {
 
     @Autowired UserService userService;
 
-    @RequestMapping("/getUsers") public List<UserEntity> getUsers() {
-        List<UserEntity> users = userService.getUsers();
-        return users;
+    @RequestMapping("/")
+    public String index() {
+        return "redirect:/list";
     }
 
-    @RequestMapping("/getUser")
-    public UserEntity getUser(Long id) {
-        UserEntity user=userService.getUser(id);
-        return user;
+
+    @RequestMapping("/list") public String getUsers(Model model) {
+        List<UserEntity> users = userService.getUsers();
+        model.addAttribute("users", users);
+        return "user/list";
+    }
+
+    @RequestMapping("/toAdd")
+    public String toAdd() {
+        return "user/userAdd";
     }
 
     @RequestMapping("/add")
-    public void save(UserEntity user) {
+    public String save(UserEntity user) {
         userService.save(user);
+        return "redirect:/list";
     }
 
-    @RequestMapping(value="update")
-    public void update(UserEntity user) {
-        userService.update(user);
+    @RequestMapping("/toEdit")
+    public String toEdit(Model model, Long id) {
+        UserEntity user=userService.getUser(id);
+        model.addAttribute("user", user);
+        return "user/userEdit";
     }
 
-    @RequestMapping(value="/delete/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    @RequestMapping("/edit")
+    public String update(UserEntity userEntity) {
+        userService.update(userEntity);
+        return "redirect:/list";
+    }
+
+    @RequestMapping(value="/delete")
+    public String delete(Long id) {
         userService.delete(id);
+        return "redirect:/list";
     }
 }

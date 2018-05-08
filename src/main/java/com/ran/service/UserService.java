@@ -4,7 +4,6 @@ import com.ran.entity.UserEntity;
 import com.ran.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class UserService {
         userMapper.update(user);
     }
 
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(Long id) {
         userMapper.delete(id);
     }
 }

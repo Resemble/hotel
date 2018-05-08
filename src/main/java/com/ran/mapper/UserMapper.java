@@ -22,7 +22,7 @@ public interface UserMapper {
     @Select("SELECT * FROM users WHERE id = #{id}")
     UserEntity getOne(Long id);
 
-    @Insert("INSERT INTO users(user_name,pass_word,user_sex) VALUES(#{userName}, #{passWord}, #{userSex})")
+    @Insert("INSERT INTO users(user_name, pass_word, user_sex, nick_name) VALUES(#{userName}, #{passWord}, #{userSex}, #{nickName})")
     void insert(UserEntity user);
 
     @Update("UPDATE users SET user_name=#{userName}, pass_word=#{passWord}, user_sex=#{userSex},nick_name=#{nickName} WHERE id =#{id}")
