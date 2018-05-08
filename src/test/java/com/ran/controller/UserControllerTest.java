@@ -21,11 +21,10 @@ public class UserControllerTest {
 
 
     @Test public void getUsers() {
-        System.out.println(userController.getUsers());
+        System.out.println();
     }
 
     @Test public void getUser() {
-        System.out.println(userController.getUser(2L));
     }
 
     @Test public void save() {
