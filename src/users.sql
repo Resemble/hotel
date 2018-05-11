@@ -39,3 +39,44 @@ INSERT INTO test.users (id, user_name, pass_word, user_sex, nick_name) VALUES (1
 INSERT INTO test.users (id, user_name, pass_word, user_sex, nick_name) VALUES (11, '李晓', '134', 'man', '晓');
 INSERT INTO test.users (id, user_name, pass_word, user_sex, nick_name) VALUES (12, '诸葛亮2', '23432', '男', '孔明');
 INSERT INTO test.users (id, user_name, pass_word, user_sex, nick_name) VALUES (13, '貂蝉', '123432', '女', '吊');
+
+DROP TABLE IF EXISTS `diagnosis_score`;
+CREATE TABLE IF NOT EXISTS diagnosis_score (
+  datekey INT PRIMARY KEY COMMENT '日期',
+  room_night INT COMMENT '间夜',
+  intention_unique_visitor INT COMMENT '意向UV',
+  intention_pay_rate DOUBLE COMMENT '意向支付率',
+  close_lose_rate DOUBLE COMMENT '关房lose率 lose跟竞对比较',
+  has_house_rate DOUBLE COMMENT '时均有房率',
+  competition_situation INT COMMENT '竞争形式'
+)ENGINE=InnoDB  COMMENT = '诊断得分表';
+
+INSERT INTO diagnosis_score(datekey, room_night, intention_unique_visitor, intention_pay_rate, close_lose_rate, has_house_rate, competition_situation) VALUES
+  (20180504, 3, 88, 0.618, 0.22, 0.33, 1),(20180505, 3, 82, 0.718, 0.42, 0.43, 2),(20180506, 1, 82, 0.818, 0.22, 0.33, 1);
+
+SELECT datekey, room_night, intention_unique_visitor, intention_pay_rate, close_lose_rate, has_house_rate, competition_situation FROM diagnosis_score;
+
+
+
+DROP TABLE IF EXISTS monitor_list;
+CREATE TABLE IF NOT EXISTS monitor_list (
+  datekey INT PRIMARY KEY COMMENT '日期',
+  room_night INT COMMENT '入住间夜',
+  cross_income INT COMMENT '入住毛收入',
+  high_star_room_night INT COMMENT '高星入住间夜',
+  high_star_cross_income INT COMMENT '高星入住毛收入',
+  intention_unique_visitor INT COMMENT '酒店意向UV',
+  intention_pay_rate DOUBLE COMMENT '意向支付率',
+  pay_user_cnt INT COMMENT '支付用户数',
+  close_lose_rate DOUBLE COMMENT '关房lose率',
+  has_house_rate DOUBLE COMMENT '时均有房率',
+  original_lose_rate DOUBLE COMMENT '原价Lose率',
+  fact_lose_rate DOUBLE COMMENT '实价Lose率',
+  competition_situation INT COMMENT '竞争形式'
+)ENGINE=InnoDB  COMMENT = '诊断得分表';
+
+INSERT INTO monitor_list(datekey, room_night, cross_income, high_star_room_night, high_star_cross_income, intention_unique_visitor, intention_pay_rate, pay_user_cnt, close_lose_rate, has_house_rate, original_lose_rate, fact_lose_rate, competition_situation) VALUES
+  (20180504, 3, 23434, 2, 943, 88, 0.618, 3, 0.22, 0.33, 0.32, 0.44, 1),
+  (20180505, 3, 23434, 2, 943, 82, 0.718, 3, 0.42, 0.43, 0.32, 0.44, 2),
+  (20180506, 1, 23434, 2, 943, 82, 0.818, 3, 0.22, 0.33, 0.32, 0.44, 1);
+
