@@ -80,3 +80,4 @@ INSERT INTO monitor_list(datekey, room_night, cross_income, high_star_room_night
   (20180505, 3, 23434, 2, 943, 82, 0.718, 3, 0.42, 0.43, 0.32, 0.44, 2),
   (20180506, 1, 23434, 2, 943, 82, 0.818, 3, 0.22, 0.33, 0.32, 0.44, 1);
 
+SELECT datekey, room_night, cross_income, high_star_room_night, high_star_cross_income, intention_unique_visitor, intention_pay_rate, pay_user_cnt, close_lose_rate, has_house_rate, original_lose_rate, fact_lose_rate, competition_situation FROM monitor_list;
